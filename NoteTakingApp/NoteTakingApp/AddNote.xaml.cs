@@ -22,10 +22,12 @@ namespace NoteTakingApp
     {
         private List<string> Notes;
         private int noteNumber;
-        public AddNote(List<string> Notes)
+        private MainWindow mainWindow;
+        public AddNote(List<string> notes, MainWindow mainwindow)
         {
             InitializeComponent();
-            this.Notes = Notes;
+            Notes = notes;
+            mainWindow = mainwindow;
         }
 
         private void AddNewNote(object sender, RoutedEventArgs e)
@@ -55,8 +57,9 @@ namespace NoteTakingApp
             }
             noteNumber = Notes.Count + 1;
             Notes.Add($"Note #{noteNumber} by {author}: {content}");
+            mainWindow.NoteVisibilityToggle(Notes);
             File.WriteAllLines("SavedNotes.txt", Notes);
-            Close(); 
+            Close();
         }
     }
 }

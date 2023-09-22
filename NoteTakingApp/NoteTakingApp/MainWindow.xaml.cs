@@ -27,20 +27,28 @@ namespace NoteTakingApp
             InitializeComponent();
             if (File.Exists("SavedNotes.txt")) Notes = File.ReadAllLines("SavedNotes.txt").ToList();
             else Notes = new List<string>();
+            NoteVisibilityToggle(Notes);
         }
         private void DisplayNotes(object sender, RoutedEventArgs e)
         {
-            DisplayNotes newDisplayNotes = new DisplayNotes(Notes);
+            var newDisplayNotes = new DisplayNotes(Notes);
             newDisplayNotes.Show();
         }
+        private void ClearNotes(object sender, RoutedEventArgs e)
+        {
+            Notes.Clear();
+            NoteVisibilityToggle(Notes);
+        }
+
         private void AddNote(object sender, RoutedEventArgs e)
         {
-            AddNote newAddNote = new AddNote(Notes);
+            var newAddNote = new AddNote(Notes, this);
             newAddNote.Show();
         }
-        private void Quit(object sender, RoutedEventArgs e)
+        public void NoteVisibilityToggle(List<string> Notes)
         {
-            Close();
+            if (Notes.Count > 0) pageDisplay.Visibility = Visibility.Visible;
+            else pageDisplay.Visibility = Visibility.Hidden;
         }
     }
 }
