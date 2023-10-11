@@ -19,13 +19,13 @@ namespace NoteTakingApp
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Note> Notes;
+        public ObservableCollection<Note> Notes { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             Notes = LoadNotesFromFile();
-            NoteVisibilityToggle(Notes);
+            DataContext = this;
         }
 
         private void DisplayNotes(object sender, RoutedEventArgs e)
@@ -36,19 +36,12 @@ namespace NoteTakingApp
         private void ClearNotes(object sender, RoutedEventArgs e)
         {
             Notes.Clear();
-            NoteVisibilityToggle(Notes);
         }
 
         private void AddNote(object sender, RoutedEventArgs e)
         {
             var newAddNote = new AddNote(Notes, this);
             newAddNote.Show();
-        }
-
-        public void NoteVisibilityToggle(ObservableCollection<Note> Notes)
-        {
-            if (Notes.Count > 0) pageDisplay.Visibility = Visibility.Visible;
-            else pageDisplay.Visibility = Visibility.Hidden;
         }
 
         private ObservableCollection<Note> LoadNotesFromFile()

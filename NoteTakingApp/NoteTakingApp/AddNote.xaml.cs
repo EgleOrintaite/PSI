@@ -44,7 +44,6 @@ namespace NoteTakingApp
             Note newNote = new Note(noteNumber, author, theme, content);
             Notes.Add(newNote);
 
-            mainWindow.NoteVisibilityToggle(Notes);
             mainWindow.SaveNotesToFile();
 
             Close();
