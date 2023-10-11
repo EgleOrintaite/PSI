@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace NoteTakingApp
 {
     public partial class DisplayNotes : Window
     {
-        private List<Note> Notes;
+        private ObservableCollection<Note> Notes;
 
-        public DisplayNotes(List<Note> notes)
+        public DisplayNotes(ObservableCollection<Note> notes)
         {
             InitializeComponent();
 
@@ -25,7 +26,7 @@ namespace NoteTakingApp
             string keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                List<Note> matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
+                ObservableCollection<Note> matchingNotes = new ObservableCollection<Note>( Notes.Where(note => note.Theme.Contains(keyword)).ToList() );
 
                 notesListBox.Items.Clear();
                 foreach (Note note in matchingNotes)

@@ -12,15 +12,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace NoteTakingApp
 {
     public partial class AddNote : Window
     {
-        private List<Note> Notes;
+        private ObservableCollection<Note> Notes;
         private MainWindow mainWindow;
 
-        public AddNote(List<Note> notes, MainWindow mainwindow)
+        public AddNote(ObservableCollection<Note> notes, MainWindow mainwindow)
         {
             InitializeComponent();
             Notes = notes;

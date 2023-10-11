@@ -13,12 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace NoteTakingApp
 {
     public partial class MainWindow : Window
     {
-        private List<Note> Notes;
+        private ObservableCollection<Note> Notes;
 
         public MainWindow()
         {
@@ -44,15 +45,15 @@ namespace NoteTakingApp
             newAddNote.Show();
         }
 
-        public void NoteVisibilityToggle(List<Note> Notes)
+        public void NoteVisibilityToggle(ObservableCollection<Note> Notes)
         {
             if (Notes.Count > 0) pageDisplay.Visibility = Visibility.Visible;
             else pageDisplay.Visibility = Visibility.Hidden;
         }
 
-        private List<Note> LoadNotesFromFile()
+        private ObservableCollection<Note> LoadNotesFromFile()
         {
-            List<Note> loadedNotes = new List<Note>();
+            ObservableCollection<Note> loadedNotes = new ObservableCollection<Note>();
             string filePath = "SavedNotes.txt";
 
             if (File.Exists(filePath))
@@ -76,7 +77,7 @@ namespace NoteTakingApp
 
         public void SaveNotesToFile()
         {
-            List<string> linesToWrite = new List<string>();
+            ObservableCollection<string> linesToWrite = new ObservableCollection<string>();
 
             foreach (Note note in Notes)
             {
