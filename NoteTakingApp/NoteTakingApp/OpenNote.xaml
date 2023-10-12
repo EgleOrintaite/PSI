@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NoteTakingApp"
         mc:Ignorable="d"
-        Title="OpenNote" Height="450" Width="800">
+        Title="OpenNote" Height="319" Width="553"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="You've opened a note!" />
+        <TextBlock HorizontalAlignment="Center" x:Name="displayCount" Margin="0 30 0 0"/>
     </Grid>
 </Window>

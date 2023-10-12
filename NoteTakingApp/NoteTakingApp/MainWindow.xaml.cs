@@ -82,5 +82,11 @@ namespace NoteTakingApp
 
             File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
+
+        private void NotesCardClick(object sender, RoutedEventArgs e)
+        {
+            var newOpenNote = new OpenNote(Notes);
+            newOpenNote.Show();
+        }
     }
 }

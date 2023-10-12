@@ -15,16 +15,15 @@ using System.Windows.Shapes;
 
 namespace NoteTakingApp
 {
-    /// <summary>
-    /// Interaction logic for OpenNote.xaml
-    /// </summary>
     public partial class OpenNote : Window
     {
+
         private ObservableCollection<Note> Notes;
-        public OpenNote(ObservableCollection<Note> notes)
+        public OpenNote( ObservableCollection<Note> notes )
         {
             InitializeComponent();
             Notes = notes;
+            displayCount.Text = $"Currently there are : {Notes.Count} notes";
         }
     }
 }

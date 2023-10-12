@@ -47,7 +47,7 @@
                 <DataTemplate>
                     
                     <StackPanel Orientation="Vertical">
-                        <Button Height="160" Width="110" Margin="20 0 10 0" Cursor="Hand"/>
+                        <Button Height="160" Width="110" Margin="20 0 10 0" Cursor="Hand" Click="NotesCardClick"/>
                         <Label Content="{Binding Theme}"/>
                         <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="Gray"/>
                     </StackPanel>
