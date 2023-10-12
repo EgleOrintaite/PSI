@@ -29,48 +29,50 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Welcome to collaborative note taking app"
                    FontSize="25" FontWeight="Bold"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Margin="10"/>
+                   Margin="10">
+        </TextBlock>
 
-
-
-        <ItemsControl
-            Grid.Row = "1"
-            ItemsSource="{Binding Notes}"
-            VerticalAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row = "1" Margin="20 20" VerticalAlignment="Center" >
+            <ItemsControl
+                Grid.Row = "1"
+                ItemsSource="{Binding Notes}"
+                VerticalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
                     
-                    <StackPanel Orientation="Vertical">
-                        <Button Height="160" Width="110" Margin="20 0 10 0" Cursor="Hand" Click="NotesCardClick"/>
-                        <Label Content="{Binding Theme}"/>
-                        <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="Gray"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Button Height="160" Width="110" Margin="20 0 10 0" Cursor="Hand" Click="NotesCardClick"/>
+                            <Label Content="{Binding Theme}"/>
+                            <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="Gray"/>
+                        </StackPanel>
          
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel
-                        Margin="0 20 0 100"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom">
-                    </WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel
+                            Margin="0 20 0 100"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom">
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
         
-        <StackPanel  Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10">
+        <StackPanel  Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10">
             <Button Content="Erase notes" Click="ClearNotes" Margin="10,0,10,0"/>
             <Button Content="Temp Check notes" Click="DisplayNotes" Margin="10,0,10,0"/>
         </StackPanel>
         
-        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50">
+        <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,40">
             <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="44" Width="46"  Style="{StaticResource CircularButton}" Background="#C7C9C8" >
                 <Image Source="Assets/white_add.png" Stretch="UniformToFill" Height="27" Width="29"/>
             </Button>
