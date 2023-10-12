@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:NoteTakingApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800"
+        MinHeight="482"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
