@@ -20,7 +20,6 @@ namespace NoteTakingApp
     public partial class MainWindow : Window
     {
         public ObservableCollection<Note> Notes { get; set; }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -47,7 +46,7 @@ namespace NoteTakingApp
         private ObservableCollection<Note> LoadNotesFromFile()
         {
             ObservableCollection<Note> loadedNotes = new ObservableCollection<Note>();
-            string filePath = "SavedNotes.txt";
+            var filePath = "SavedNotes.txt";
 
             if (File.Exists(filePath))
             {
@@ -60,7 +59,7 @@ namespace NoteTakingApp
                     string theme = lines[i + 2];
                     string content = lines[i + 3];
 
-                    Note note = new Note(number, author, theme, content);
+                    var note = new Note(number, author, theme, content);
                     loadedNotes.Add(note);
                 }
             }
@@ -71,7 +70,6 @@ namespace NoteTakingApp
         public void SaveNotesToFile()
         {
             ObservableCollection<string> linesToWrite = new ObservableCollection<string>();
-
             foreach (Note note in Notes)
             {
                 linesToWrite.Add(note.Number.ToString());
@@ -85,8 +83,15 @@ namespace NoteTakingApp
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
-            var newOpenNote = new OpenNote(Notes);
-            newOpenNote.Show();
+            Button button = (Button)sender;
+            if (button.DataContext is Note selectedNote)
+            {
+                string noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
+
+                var noteWindow = new NoteWindow(noteDetails);
+                noteWindow.Show();
+            }
         }
+
     }
 }

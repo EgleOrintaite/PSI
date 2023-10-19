@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,15 +14,13 @@ using System.Windows.Shapes;
 
 namespace NoteTakingApp
 {
-    public partial class OpenNote : Window
+    public partial class NoteWindow : Window
     {
-
-        private ObservableCollection<Note> Notes;
-        public OpenNote(ObservableCollection<Note> notes )
+        public NoteWindow(string noteDetails)
         {
             InitializeComponent();
-            Notes = notes;
-            displayCount.Text = $"Currently there are : {Notes.Count} notes";
+            noteDetailsText.Text = noteDetails;
         }
     }
 }
+

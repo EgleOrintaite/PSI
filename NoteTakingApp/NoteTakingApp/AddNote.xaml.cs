@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Security.AccessControl;
 
 namespace NoteTakingApp
 {
@@ -41,7 +42,7 @@ namespace NoteTakingApp
             }
 
             int noteNumber = Notes.Count + 1;
-            Note newNote = new Note(noteNumber, author, theme, content);
+            var newNote = new Note(noteNumber, author, theme, content);
             Notes.Add(newNote);
 
             mainWindow.SaveNotesToFile();

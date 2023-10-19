@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace NoteTakingApp
 {
     public partial class DisplayNotes : Window
     {
-        private List<Note> Notes;
+        private ObservableCollection <Note> Notes;
         private string sortedColumn;
         private bool ascendingOrder;
 
-        public DisplayNotes(List<Note> notes)
+        public DisplayNotes(ObservableCollection<Note> notes)
         {
             InitializeComponent();
 
@@ -22,7 +24,7 @@ namespace NoteTakingApp
             DisplayNotesInListBox(Notes);
         }
 
-        private void DisplayNotesInListBox(List<Note> notes)
+        private void DisplayNotesInListBox(ObservableCollection<Note> notes)
         {
             notesListBox.Items.Clear();
             foreach (Note note in notes)
@@ -36,7 +38,7 @@ namespace NoteTakingApp
             string keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                List<Note> matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
+                var matchingNotes = new ObservableCollection<Note>(Notes.Where(note => note.Theme.Contains(keyword)).ToList());
                 DisplayNotesInListBox(matchingNotes);
             }
             else
@@ -53,8 +55,8 @@ namespace NoteTakingApp
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            string columnName = button.Tag.ToString();
+            var button = (Button)sender;
+            var columnName = button.Tag.ToString();
 
             if (sortedColumn == columnName)
             {
@@ -69,17 +71,39 @@ namespace NoteTakingApp
             switch (columnName)
             {
                 case "Number":
-                    Notes.Sort((note1, note2) => ascendingOrder ? note1.Number.CompareTo(note2.Number) : note2.Number.CompareTo(note1.Number));
+                    Notes = new ObservableCollection<Note>(ascendingOrder
+                        ? Notes.OrderBy(note => note.Number)
+                        : Notes.OrderByDescending(note => note.Number));
                     break;
                 case "Author":
-                    Notes.Sort((note1, note2) => ascendingOrder ? note1.Author.CompareTo(note2.Author) : note2.Author.CompareTo(note1.Author));
+                    Notes = new ObservableCollection<Note>(ascendingOrder
+                        ? Notes.OrderBy(note => note.Author)
+                        : Notes.OrderByDescending(note => note.Author));
                     break;
                 case "Theme":
-                    Notes.Sort((note1, note2) => ascendingOrder ? note1.Theme.CompareTo(note2.Theme) : note2.Theme.CompareTo(note1.Theme));
+                    Notes = new ObservableCollection<Note>(ascendingOrder
+                        ? Notes.OrderBy(note => note.Theme)
+                        : Notes.OrderByDescending(note => note.Theme));
                     break;
             }
 
+
             DisplayNotesInListBox(Notes);
         }
+        private void notesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int selectedIndex = notesListBox.SelectedIndex;
+
+            if (selectedIndex >= 0 && selectedIndex < Notes.Count)
+            {
+                Note selectedNote = Notes[selectedIndex];
+
+                string noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
+
+                NoteWindow noteWindow = new NoteWindow(noteDetails);
+                noteWindow.ShowDialog();
+            }
+        }
+
     }
 }
