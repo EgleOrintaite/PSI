@@ -35,7 +35,7 @@ namespace NoteTakingApp
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            string keyword = searchTextBox.Text;
+            var keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 var matchingNotes = new ObservableCollection<Note>(Notes.Where(note => note.Theme.Contains(keyword)).ToList());
@@ -92,15 +92,15 @@ namespace NoteTakingApp
         }
         private void notesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int selectedIndex = notesListBox.SelectedIndex;
+            var selectedIndex = notesListBox.SelectedIndex;
 
             if (selectedIndex >= 0 && selectedIndex < Notes.Count)
             {
-                Note selectedNote = Notes[selectedIndex];
+                var selectedNote = Notes[selectedIndex];
 
-                string noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
+                var noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
 
-                NoteWindow noteWindow = new NoteWindow(noteDetails);
+                var noteWindow = new NoteWindow(noteDetails);
                 noteWindow.ShowDialog();
             }
         }

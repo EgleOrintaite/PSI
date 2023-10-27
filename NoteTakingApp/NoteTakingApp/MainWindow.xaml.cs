@@ -83,10 +83,10 @@ namespace NoteTakingApp
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
+            var button = (Button)sender;
             if (button.DataContext is Note selectedNote)
             {
-                string noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
+                var noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
 
                 var noteWindow = new NoteWindow(noteDetails);
                 noteWindow.Show();
