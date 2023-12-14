@@ -25,14 +25,16 @@ namespace NoteTakingApp
     public partial class MainWindow : Window
     {
 
-        private NoteDbContext dbContext;
-        private string Author;
+        public NoteDbContext dbContext;
+        public string Author;
         public ObservableCollection<Note> Notes { get; set; }
+        private readonly Middleware middleware;
 
         public MainWindow()
         {
             InitializeComponent();
-            if(!UsernameDialog())
+            middleware = new Middleware(this);
+            if (!middleware.AuthenticateUser())
             {
                 Close();
             }
@@ -40,8 +42,22 @@ namespace NoteTakingApp
             dbContext = new NoteDbContext();
             Notes = new ObservableCollection<Note>(LoadUserNotes(Author));
             DataContext = this;
+
+        }
+        private void ChangeUser(object sender, RoutedEventArgs e)
+        {
+            middleware.ChangeUser();
         }
 
+        private void AddNote(object sender, RoutedEventArgs e)
+        {
+            middleware.AddNote();
+        }
+
+        private void NotesCardClick(object sender, RoutedEventArgs e)
+        {
+            middleware.HandleNotesCardClick(sender, e);
+        }
         private bool UsernameDialog()
         {
             var loginWindow = new LoginWindow();
@@ -52,7 +68,7 @@ namespace NoteTakingApp
         {
             var newDisplayNotes = new DisplayNotes(Notes, this);
             newDisplayNotes.Show();
-        }
+        }/*
         private void ChangeUser(object sender, RoutedEventArgs e)
         {
             if (!UsernameDialog())
@@ -69,7 +85,7 @@ namespace NoteTakingApp
             {
                 Notes.Add(note);
             }
-        }
+        }*/
         private void ClearNotes(object sender, RoutedEventArgs e)
         {
             Notes.Clear();
@@ -79,12 +95,12 @@ namespace NoteTakingApp
         {
             dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
         }
-
+        /*
         private void AddNote(object sender, RoutedEventArgs e)
         {
             var newAddNote = new AddNote(this, dbContext);
             newAddNote.Show();
-        }
+        }*/
 
         //Notes = new ObservableCollection<Note>(LoadPublicNotes());
 
@@ -126,7 +142,7 @@ namespace NoteTakingApp
             }
         }
 
-
+        /*
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
@@ -137,7 +153,7 @@ namespace NoteTakingApp
                 Visibility = Visibility.Collapsed;
             }
         }
-
+        */
         public void OpenMainWindow()
         {
             Visibility = Visibility.Visible;
