@@ -88,7 +88,7 @@ namespace Tests
             thread.Join();
 
             // Assert
-            using (var context = new NoteDbContext())
+            using (var context = new NoteTakingApp.NoteDbContext())
             {
                 var savedNote = context.Notes.FirstOrDefault();
                 Assert.IsNotNull(savedNote);
